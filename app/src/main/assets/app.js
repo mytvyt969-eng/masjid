@@ -21,7 +21,6 @@ function fmt(d){return d.toLocaleTimeString([],{hour:"2-digit",minute:"2-digit",
 function updateHeader(now){
  document.getElementById("gregorianDate").textContent=now.toLocaleDateString("en-IN",{weekday:"short",day:"2-digit",month:"short",year:"numeric"});
  document.getElementById("hijriDate").textContent="29 Rabi' al-Awwal 1448 AH";
- document.getElementById("clockDigital").textContent=fmt(now);
 }
 function updateAnalog(now){
  const h=now.getHours()%12,m=now.getMinutes(),s=now.getSeconds();
