@@ -3,9 +3,9 @@
 html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#06151d;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}
 body{color:var(--white)}
 .screen{position:relative;width:100vw;height:100vh;min-width:960px;min-height:540px;overflow:hidden;background:#0a2731}
-.scene{position:absolute;inset:0;background:radial-gradient(circle at 72% 46%,rgba(255,224,152,.9) 0 2%,transparent 13%),linear-gradient(180deg,#1267aa 0%,#4c9ed0 37%,#f2bd79 72%,#172d35 100%);transition:background 1.8s ease,filter 1.8s ease}
-.scene:before{content:"";position:absolute;left:-5%;right:-5%;bottom:18%;height:35%;background:radial-gradient(ellipse 8% 55% at 15% 80%,#18343c 0 60%,transparent 61%),radial-gradient(ellipse 10% 70% at 30% 75%,#16343b 0 60%,transparent 61%),radial-gradient(ellipse 13% 60% at 50% 76%,#18343c 0 60%,transparent 61%),radial-gradient(ellipse 9% 75% at 70% 74%,#16343b 0 60%,transparent 61%),radial-gradient(ellipse 12% 62% at 88% 77%,#18343c 0 60%,transparent 61%);filter:blur(7px)}
-.scene:after{content:"";position:absolute;left:0;right:0;bottom:0;height:34%;background:linear-gradient(180deg,transparent,#07181f 80%);opacity:.7}
+.scene{position:absolute;inset:0;background-color:#0a2731;background-position:center;background-size:cover;background-repeat:no-repeat;transition:background-image 1.2s ease,filter 1.2s ease}
+.scene:before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.06) 0%,rgba(0,0,0,.02) 45%,rgba(0,0,0,.28) 100%);pointer-events:none}
+.scene:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.10),transparent 28%,transparent 70%,rgba(0,0,0,.35));pointer-events:none}
 .vignette{position:absolute;inset:0;background:radial-gradient(ellipse at center,transparent 45%,rgba(0,0,0,.38) 100%);pointer-events:none}
 .topbar,.hero,.prayers,footer{position:relative;z-index:2}
 .topbar{height:18%;display:flex;justify-content:space-between;align-items:flex-start;padding:2.8vh 3.1vw 0}
@@ -37,4 +37,13 @@ small{display:block;font-size:clamp(13px,1.2vw,22px);opacity:.95}strong{display:
 .theme-maghrib .prayer.active{background:linear-gradient(160deg,#e34d24,#b82f16);color:#fff;box-shadow:0 0 0 2px #ffb13b,0 0 30px rgba(255,83,25,.72)}
 .theme-isha .prayer.active{background:linear-gradient(160deg,#159bd8,#075c99);color:#fff;box-shadow:0 0 0 2px #70eaff,0 0 30px rgba(45,210,255,.72)}.prayer .phead{display:flex;align-items:center;justify-content:center;gap:.35vw;font-size:clamp(18px,1.75vw,32px);font-weight:800}.prayer .icon{font-size:clamp(19px,1.8vw,33px)}.times{margin-top:1.1vh;text-align:center}.times small{font-size:clamp(10px,.95vw,17px);opacity:.9}.times strong{font-size:clamp(15px,1.45vw,27px)}.times .sep{height:1px;background:currentColor;opacity:.3;margin:.8vh 22%}
 footer{height:8%;display:flex;align-items:center;justify-content:center;gap:1.3vw;padding:0 3vw;font-size:clamp(12px,1.05vw,20px);background:rgba(3,23,30,.72);border-top:1px solid rgba(255,255,255,.12)}footer i{height:18px;width:1px;background:rgba(255,255,255,.35)}.speaker{font-size:1.2em}.demo-badge{position:absolute;right:1vw;bottom:1vh;z-index:5;font-size:10px;opacity:.45;letter-spacing:.15em}
-.theme-fajr .scene{background:linear-gradient(180deg,#123c72 0%,#344f85 45%,#e0a06c 74%,#172a34 100%);filter:saturate(.9)}.theme-dhuhr .scene{background:linear-gradient(180deg,#0d7ac7 0%,#66b7e8 47%,#d9e7c2 75%,#183c35 100%)}.theme-asr .scene{background:linear-gradient(180deg,#3b75a4 0%,#8cb2bd 45%,#e3a66b 73%,#1f3636 100%)}.theme-maghrib .scene{background:linear-gradient(180deg,#4d2a5d 0%,#d55a38 48%,#ffad57 72%,#171d2c 100%)}.theme-isha .scene{background:linear-gradient(180deg,#03122e 0%,#071e42 50%,#0d3b45 76%,#04151d 100%)}.theme-isha .scene:before{opacity:.9}.theme-isha .scene:after{background:linear-gradient(180deg,transparent,#020b12 80%)}@media(max-aspect-ratio:4/3){.screen{min-width:0}.hero{grid-template-columns:25% 50% 25%}.jummah,.right-stack{transform:scale(.92)}}
+.theme-fajr .scene{background-image:url("./backgrounds/fajr.jpg");filter:saturate(1.02)}
+.theme-dhuhr .scene{background-image:url("./backgrounds/dhuhr.jpg");filter:saturate(1.04)}
+.theme-asr .scene{background-image:url("./backgrounds/asr.jpg");filter:saturate(1.03)}
+.theme-maghrib .scene{background-image:url("./backgrounds/maghrib.jpg");filter:saturate(1.05)}
+.theme-isha .scene{background-image:url("./backgrounds/isha.jpg");filter:saturate(1.04) brightness(.92)}
+.theme-isha .scene:before{background:linear-gradient(180deg,rgba(0,10,35,.08),rgba(0,10,35,.12))}
+.theme-isha .scene:after{background:linear-gradient(180deg,rgba(0,0,0,.08),transparent 30%,rgba(0,0,0,.42))}@media(max-aspect-ratio:4/3){.screen{min-width:0}.hero{grid-template-columns:25% 50% 25%}.jummah,.right-stack{transform:scale(.92)}}
+
+/* Reference layout refinements */
+.hero{grid-template-columns:25% 50% 25%;gap:1.15vw;padding:0 2.5vw}.clock-panel{grid-template-columns:39% 61%;}.analog{width:min(100%,19vw)}.next-card{height:78%;}.prayers{padding-left:3.2vw;padding-right:3.2vw;gap:1.05vw}.prayer{border-radius:18px}.theme-dhuhr .prayer.active{border:2px solid #ffe15a}.theme-asr .prayer.active,.theme-maghrib .prayer.active{border:2px solid #ffd04a}.theme-isha .prayer.active{border:2px solid #6deaff}
