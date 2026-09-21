@@ -22,6 +22,34 @@ function updateHeader(now){
  document.getElementById("gregorianDate").textContent=now.toLocaleDateString("en-IN",{weekday:"short",day:"2-digit",month:"short",year:"numeric"});
  document.getElementById("hijriDate").textContent="29 Rabi' al-Awwal 1448 AH";
 }
+
+function weatherIcon(code){
+ if(code===0)return "☀️"; if([1,2].includes(code))return "🌤️"; if(code===3)return "☁️";
+ if([45,48].includes(code))return "🌫️"; if([51,53,55,56,57,61,63,65,80,81,82].includes(code))return "🌧️";
+ if([71,73,75,77,85,86].includes(code))return "🌨️"; if([95,96,99].includes(code))return "⛈️"; return "🌤️";
+}
+function weatherText(code){
+ if(code===0)return "Clear"; if([1,2].includes(code))return "Partly Cloudy"; if(code===3)return "Cloudy";
+ if([45,48].includes(code))return "Fog"; if([51,53,55,56,57,61,63,65,80,81,82].includes(code))return "Rain";
+ if([95,96,99].includes(code))return "Thunderstorm"; return "Cloudy";
+}
+async function updateWeather(){
+ const apply=w=>{
+  document.getElementById("weatherTemp").textContent=w.temp;
+  document.getElementById("weatherDesc").textContent=w.desc;
+  document.getElementById("weatherHigh").textContent=w.high;
+  document.getElementById("weatherLow").textContent=w.low;
+  document.getElementById("weatherIcon").textContent=w.icon;
+ };
+ const fallback={temp:"28°C",desc:"Light Rain",high:"H:32°",low:"L:25°",icon:"🌧️"};
+ try{
+  const u="https://api.open-meteo.com/v1/forecast?latitude=23.6693&longitude=86.1511&current=temperature_2m,weather_code&daily=temperature_2m_max,temperature_2m_min&timezone=Asia%2FKolkata&forecast_days=1";
+  const r=await fetch(u); if(!r.ok)throw new Error("weather");
+  const d=await r.json(),c=d.current,day=d.daily;
+  apply({temp:Math.round(c.temperature_2m)+"°C",desc:weatherText(c.weather_code),high:"H:"+Math.round(day.temperature_2m_max[0])+"°",low:"L:"+Math.round(day.temperature_2m_min[0])+"°",icon:weatherIcon(c.weather_code)});
+ }catch(e){apply(fallback);}
+}
+
 function updateAnalog(now){
  const h=now.getHours()%12,m=now.getMinutes(),s=now.getSeconds();
  document.getElementById("hourHand").style.transform=`translate(-50%,-100%) rotate(${h*30+m*.5}deg)`;
@@ -55,7 +83,7 @@ function tick(){
  let active="Isha";for(const name of prayerOrder){if(now>=parseTime(schedule[name].adhan,now))active=name;}
  setTheme(active);buildCards(active);
 }
-setStatic();tick();setInterval(tick,1000);
+setStatic();tick();updateWeather();setInterval(tick,1000);setInterval(updateWeather,600000);
 
 let demo=false,demoIndex=0,demoTimer=null;
 document.addEventListener("keydown",e=>{
